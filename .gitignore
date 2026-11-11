@@ -1,0 +1,12 @@
+# Factorio
+factorio-current.log
+factorio-previous.log
+script-output/
+temp/
+*.tmp
+
+# OS / IDE
+Thumbs.db
+.DS_Store
+.vscode/
+.idea/
