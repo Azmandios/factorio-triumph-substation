@@ -4,7 +4,7 @@
 # Требования:
 #   1. Мод должен быть СОЗДАН на mods.factorio.com через веб-интерфейс
 #      (API умеет только добавлять релизы, но не создавать мод).
-#      Страница создания: https://mods.factorio.com/mods/create
+#      Страница создания: https://mods.factorio.com/mods/new
 #   2. Токен API с правом «ModPortal: Upload Mods» — https://factorio.com/profile.
 #
 # Токен берётся из переменной MOD_PORTAL_TOKEN или файла .mod-portal-token
@@ -41,7 +41,7 @@ ARCHIVE="$ROOT/dist/${NAME}_${VERSION}.zip"
 echo "[publish] проверка '$NAME' на Mod Portal..."
 if ! curl -sS -f -o /dev/null "$PORTAL/api/mods/$NAME"; then
   echo "ERROR: мод '$NAME' не найден на Mod Portal." >&2
-  echo "        Создайте страницу мода: $PORTAL/mods/create" >&2
+  echo "        Создайте страницу мода: $PORTAL/mods/new" >&2
   echo "        Name:            $NAME" >&2
   echo "        Factorio version: 2.1" >&2
   echo "        License:         MIT" >&2

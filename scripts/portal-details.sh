@@ -55,7 +55,7 @@ done < <(python3 -c "import json; print('\n'.join(json.load(open('$META'))['tags
 
 echo "[portal] проверка '$NAME' на Mod Portal..."
 if ! curl -sS -f -o /dev/null "$PORTAL/api/mods/$NAME"; then
-  echo "ERROR: мод '$NAME' не найден. Сначала создайте страницу: $PORTAL/mods/create" >&2
+  echo "ERROR: мод '$NAME' не найден. Сначала создайте страницу: $PORTAL/mods/new" >&2
   exit 1
 fi
 

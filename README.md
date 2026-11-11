@@ -89,7 +89,7 @@ The headless test does three things:
 ## Publishing
 
 The first release requires the mod page to exist (the Mod Portal API can only add
-releases to an existing mod): <https://mods.factorio.com/mods/create>
+releases to an existing mod): <https://mods.factorio.com/mods/new>
 
 - Name: `TriumphSubstation2`
 - Factorio version: 2.1
