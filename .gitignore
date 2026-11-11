@@ -1,4 +1,5 @@
 # Factorio
+dist/
 factorio-current.log
 factorio-previous.log
 script-output/
@@ -10,3 +11,8 @@ Thumbs.db
 .DS_Store
 .vscode/
 .idea/
+
+# Secrets (Mod Portal API token)
+.mod-portal-token
+.env
+.env.*

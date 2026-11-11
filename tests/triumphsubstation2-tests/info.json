@@ -1,0 +1,9 @@
+{
+  "name": "triumphsubstation2-tests",
+  "version": "0.1.0",
+  "title": "TriumphSubstation2 tests",
+  "author": "Azmandios",
+  "factorio_version": "2.1",
+  "dependencies": ["TriumphSubstation2"],
+  "description": "Headless regression tests for TriumphSubstation2. Not meant to be played."
+}

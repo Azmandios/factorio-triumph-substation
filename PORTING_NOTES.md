@@ -1,16 +1,32 @@
 # TriumphSubstation — портирование на Factorio 2.1
 
-Готовый мод: `dist/TriumphSubstation_2.1.0.zip`.
+Готовый мод: `dist/TriumphSubstation2_<version>.zip` (имя внутри — `TriumphSubstation2`).
 
-Исходники: `src/TriumphSubstation_2.1.0/`.
+Исходники лежат в корне репозитория (как их ждёт Factorio); исходный код версии
+1.0.0 для Factorio 1.1 сохранён в `original/` для справки.
+
+## Имя мода
+
+Оригинал на Mod Portal называется `TriumphSubstation` (заголовок «Triump
+Substations» — опечатка только в заголовке), владелец `alecksey`. API портала не
+умеет создавать моды и не даёт загружать релизы в чужой мод, поэтому порт
+публикуется под именем `TriumphSubstation2`.
+
+Что это меняет:
+
+- префикс путей к ресурсам: `__TriumphSubstation__/...` → `__TriumphSubstation2__/...`;
+- имя папки в zip: `TriumphSubstation2_<version>/`;
+- ничего больше: имена прототипов (`substation-2/3/4`, `electric-substation-3/4/5`)
+  не менялись, поэтому старые сохранения и чертежи совместимы.
 
 ## Что изменено относительно 1.0.0 (1.1)
 
 ### info.json
 - `factorio_version`: `1.1` → `2.1`
 - зависимость: `base >= 2.1.0`
-- версия мода: `2.1.0`
-- в описании исправлено «two» → «three» и добавлена третья подстанция.
+- имя мода: `TriumphSubstation2`, автор: `Azmandios`, ссылки на репозиторий
+- в описании исправлено «two» → «three», добавлена третья подстанция и кредиты
+  оригинальному автору (оригинал распространяется под MIT).
 
 ### Графика / прототипы сущностей
 - В Factorio 2.0+ спрайты электрических столбов нужно оборачивать в `pictures.layers`.
@@ -30,7 +46,19 @@
 ### Технологии
 - `advanced-electronics` удалена в 2.0 → заменена на `advanced-circuit`.
 - Остальные предпосылки и эффекты не менялись.
-- Добавлены названия и описания технологий/рецептов/предметов в `locale/ru` и `locale/en`.
+- У технологий вида `electric-substation-3` Factorio автоматически строит имя
+  «<базовое имя> 3» по ключу `technology-name.electric-substation`, поэтому
+  ключи `technology-name.electric-substation-3` игнорировались. Теперь у
+  прототипов явно заданы `localised_name` и `localised_description` —
+  это единственный способ сохранить разные названия для каждого уровня.
+- Удалён закомментированный блок-наследство от 1.1 (ссылался на удалённую
+  `advanced-electronics`).
+
+### Локализация
+- Добавлены `locale/en` и `locale/ru` с названиями и описаниями технологий,
+  рецептов, предметов и сущностей.
+- Русские названия нуклонной и безрассудной подстанций исправлены
+  («Невхерственная»/«Технологичная» → «Безрассудная»/«Нуклонная»).
 
 ### control.lua
 - В 2.1 у `LuaSurface.create_entity()` больше нет параметра `speed`.
@@ -44,14 +72,21 @@
 Space Age не обязателен, но с ним мод работает.
 
 ## Проверка
-Проверено на Factorio **2.1.24** (Steam, Space Age):
-- `--dump-data` — прототипы загружаются без ошибок;
-- headless-тест: разрушение `substation-3` создаёт атомный взрыв и уничтожает
-  стену в 8 клетках от подстанции.
+
+`make test` выполняет:
+
+1. `tools/check.py` — статические проверки: info.json, версия в changelog,
+   префиксы `__TriumphSubstation2__`, наличие файлов графики, паритет ключей
+   локализации en/ru, LICENSE.
+2. `--dump-data` + `--dump-prototype-locale` — числовые характеристики
+   прототипов, формат `pictures.layers`, рецепты, технологии и русские названия
+   (`tools/smoke.py`).
+3. `--test-scenario` — сценарий `tests/triumphsubstation2-tests/scenarios/explosion`:
+   ставит `substation-3`, ломает её, проверяет, что атомный взрыв уничтожил
+   стены в радиусе 8 клеток и не задел стену в 60 клетках.
+
+Проверено на Factorio **2.1.24** (Steam, macOS arm64, Space Age).
 
 ## Установка
-Скопировать `dist/TriumphSubstation_2.1.0.zip` в:
-
-`%APPDATA%\Factorio\mods`
-
-и включить мод в игре (Mods → Triumph Substations).
+`make install` или скопировать `dist/TriumphSubstation2_<version>.zip` в
+`%APPDATA%\Factorio\mods` (`~/.factorio/mods` на Linux/macOS) и включить мод в игре.

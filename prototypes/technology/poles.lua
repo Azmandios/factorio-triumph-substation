@@ -1,31 +1,13 @@
-
-
---[[ubstations--
-local substations_2 = util.table.deepcopy(data.raw.technology["electric-energy-distribution-2"])
-substations_2.name = "electric-substation-3"
-substations_2.effects[1].type = "unlock-recipe"
-substations_2.effects[1].recipe = "substation-2"
-substations_2.effects[2].type = "unlock-recipe"
-substations_2.effects[2].recipe = "substation-3"
-substations_2.effects[3].type = "unlock-recipe"
-substations_2.effects[3].recipe = "substation-4"
-substations_2.prerequisites[1] = "electric-energy-distribution-2"
-substations_2.prerequisites[2] = "advanced-electronics"
-substations_2.unit.count = 150
-substations_2.unit.ingredients[1] = {"automation-science-pack", 1}
-substations_2.unit.ingredients[2] = {"logistic-science-pack", 1}
-substations_2.unit.ingredients[3] = {"chemical-science-pack", 1}
-substations_2.unit.time = 45
-substations_2.order = "c-e-c-2"
-substations_2.upgrade = true
-data:extend({substations_2})
-]]
-
 data:extend({
 		{
 			type = "technology",
 			name = "electric-substation-3",
-			icon = "__TriumphSubstation__/graphics/tech/electric-energy-distribution.png",
+			-- The name ends with a tier number, so Factorio would build
+			-- "<base name> 3" from the "electric-substation" locale key.
+			-- Set the explicit keys to keep distinct names for every tier.
+			localised_name = {"technology-name.electric-substation-3"},
+			localised_description = {"technology-description.electric-substation-3"},
+			icon = "__TriumphSubstation2__/graphics/tech/electric-energy-distribution.png",
 			icon_size = 128,
 			unit = {
 				count = 150,
@@ -55,7 +37,12 @@ data:extend({
 		{
 			type = "technology",
 			name = "electric-substation-4",
-			icon = "__TriumphSubstation__/graphics/tech/electric-energy-distribution.png",
+			-- The name ends with a tier number, so Factorio would build
+			-- "<base name> 4" from the "electric-substation" locale key.
+			-- Set the explicit keys to keep distinct names for every tier.
+			localised_name = {"technology-name.electric-substation-4"},
+			localised_description = {"technology-description.electric-substation-4"},
+			icon = "__TriumphSubstation2__/graphics/tech/electric-energy-distribution.png",
 			icon_size = 128,
 			unit = {
 				count = 300,
@@ -86,7 +73,12 @@ data:extend({
 		{
 			type = "technology",
 			name = "electric-substation-5",
-			icon = "__TriumphSubstation__/graphics/tech/electric-energy-distribution.png",
+			-- The name ends with a tier number, so Factorio would build
+			-- "<base name> 5" from the "electric-substation" locale key.
+			-- Set the explicit keys to keep distinct names for every tier.
+			localised_name = {"technology-name.electric-substation-5"},
+			localised_description = {"technology-description.electric-substation-5"},
+			icon = "__TriumphSubstation2__/graphics/tech/electric-energy-distribution.png",
 			icon_size = 128,
 			unit = {
 				count = 600,

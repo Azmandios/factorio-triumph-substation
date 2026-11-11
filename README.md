@@ -1,10 +1,17 @@
-# Triumph Substations — Factorio 2.1 port
+# Triumph Substations (2.1 port)
 
-Community port of **Triumph Substations** to Factorio 2.1.
+Community port of the **Triump Substations** mod to Factorio 2.1.
 
-- Original mod: **Logvinov Alecksey** (contact: [alecksey.com](https://alecksey.com))
-- 2.1 port: **Azmandios**
+- Original mod and assets: **Logvinov Alecksey** ([alecksey.com](https://alecksey.com))
+- Original mod for Factorio 1.1: [mods.factorio.com/mod/TriumphSubstation](https://mods.factorio.com/mod/TriumphSubstation) (MIT)
+- 2.1 port and maintenance: **Azmandios**
+- Mod Portal: [mods.factorio.com/mod/TriumphSubstation2](https://mods.factorio.com/mod/TriumphSubstation2)
 - Tested on Factorio **2.1.24** (Steam, Space Age)
+
+The Mod Portal name is `TriumphSubstation2` because `TriumphSubstation` is already
+taken by the 1.1 version. Internal prototype names (`substation-2/3/4`,
+`electric-substation-3/4/5`) are unchanged, so saves and blueprints from the
+original mod keep working.
 
 ## What it adds
 
@@ -16,8 +23,8 @@ Three substations with a larger supply area, longer wire reach, and more expensi
 | Experimental Nucleonic Substation | 48×48 | 48 | 100 | Explodes when destroyed |
 | Reckless Substation | 64×64 | 64 | 100 | Largest supply area |
 
-The Experimental Nucleonic Substation detonates with a full atomic-bomb blast when destroyed.
-Use at your own risk.
+The Experimental Nucleonic Substation detonates with a full atomic-bomb blast when
+destroyed. Use at your own risk.
 
 ## Research
 
@@ -27,75 +34,111 @@ Use at your own risk.
 | `electric-substation-4` — Nucleonic Substations | Experimental Nucleonic Substation | `electric-substation-3`, `nuclear-power` |
 | `electric-substation-5` — Reckless Substations | Reckless Substation | `electric-substation-4`, `nuclear-power` |
 
-The internal prototype names are `substation-2`, `substation-3` and `substation-4`;
-the technologies that unlock them are named `electric-substation-3`, `-4` and `-5`.
-
 ## Installation
 
-1. Download `dist/TriumphSubstation_2.1.0.zip` (or take it from the latest GitHub release).
+From the Mod Portal: subscribe in game (Mods → Install mods).
+
+From the zip:
+
+1. Download `dist/TriumphSubstation2_<version>.zip` (or take it from a GitHub release).
 2. Put the zip into your Factorio mods folder:
    - Windows: `%APPDATA%\Factorio\mods`
    - Linux/macOS: `~/.factorio/mods`
-3. Enable **Triumph Substations** in the in-game mod list.
+3. Enable **Triumph Substations (2.1 port)** in the in-game mod list.
 
 No other mods are required. Space Age is optional.
 
-## Building the zip
+## Development
 
-Windows (PowerShell):
+Repository layout (mod files live in the repository root, as Factorio expects):
 
-```powershell
-pwsh -File build.ps1
+```
+info.json, changelog.txt, control.lua, data.lua
+graphics/ locale/ migrations/ prototypes/   mod content
+original/                                   original 1.0.0 source (Factorio 1.1), reference only
+tests/                                      headless test mod + scenario
+tools/check.py                              static checks (info.json, changelog, sprites, locale)
+tools/smoke.py                              prototype/locale checks on the Factorio dump
+scripts/build.sh                            build dist/<name>_<version>.zip
+scripts/test.sh                             static checks + Factorio dump + scenario test
+scripts/release.sh                          bump version, changelog, commit, tag, build
+scripts/publish.sh                          upload the built zip to the Mod Portal
 ```
 
-Linux/macOS:
+Common commands:
 
 ```bash
-./build.sh
+make check      # static checks only
+make build      # dist/TriumphSubstation2_<version>.zip
+make test       # checks + headless Factorio run (needs Factorio installed)
+make install    # build and copy into the local Factorio mods folder
+make release BUMP=patch CHANGES="..."   # release
+make publish    # upload to the Mod Portal
 ```
 
-The archive is written to `dist/`.
+`FACTORIO_BIN` and `FACTORIO_MODS` override the default macOS paths.
 
-## Repository layout
+The headless test does three things:
 
-```
-src/        Mod source for Factorio 2.1
-original/   Original 1.0.0 source (Factorio 1.1), kept for reference
-dist/       Ready-to-install zip
-build.ps1   Packaging script (Windows)
-build.sh    Packaging script (Linux/macOS)
-PORTING_NOTES.md  Technical notes about the 2.1 port
-```
+1. builds the zip and starts Factorio with the mod;
+2. `--dump-data` / `--dump-prototype-locale` — verifies supply areas, wire reach,
+   2.0+ `pictures.layers` sprites, recipes, technologies and Russian names;
+3. `--test-scenario` — places `substation-3`, destroys it, and checks that the
+   atomic blast kills nearby walls and spares a distant one.
+
+## Publishing
+
+The first release requires the mod page to exist (the Mod Portal API can only add
+releases to an existing mod): <https://mods.factorio.com/mods/create>
+
+- Name: `TriumphSubstation2`
+- Factorio version: 2.1
+- License: MIT
+- Category: Content
+- Tags: Circuit network
+
+Then put the API token (factorio.com → Profile → API keys, permission
+`ModPortal: Upload Mods`) into `.mod-portal-token` (chmod 600, ignored by git) or
+export `MOD_PORTAL_TOKEN`, and run `make publish`.
+
+## Credits and license
+
+Original mod and assets: **Logvinov Alecksey**.
+Factorio 2.1 port: **Azmandios**.
+
+The original mod is published under the MIT license; this port keeps the same
+license, see [LICENSE](LICENSE). If you are the original author and want any part
+of this repository changed, please open an issue.
 
 ## Porting notes
 
 The 2.1 port required more than repacking: Factorio 2.0 changed several prototype APIs.
 See [PORTING_NOTES.md](PORTING_NOTES.md) for details. Summary:
 
-- `info.json` updated to `factorio_version` 2.1.
+- `info.json` updated to `factorio_version` 2.1 and the new mod name.
 - Electric-pole sprites now use `pictures.layers`.
 - Recipes use the 2.x ingredient/result format.
 - `advanced-electronics` was removed in 2.0 and replaced with `advanced-circuit`.
-- `create_entity()` no longer accepts `speed`; the atomic rocket is now spawned
+- `create_entity()` no longer accepts `speed`; the atomic rocket is spawned
   slightly away from the substation and its speed is assigned after creation.
-
-## Credits
-
-Original mod and assets: **Logvinov Alecksey**.
-Factorio 2.1 port: **Azmandios**.
-
-If you are the original author and want any part of this repository changed,
-please open an issue.
+- Technologies end with a tier number, so their `localised_name` and
+  `localised_description` are set explicitly to avoid the automatic
+  "<base name> N" fallback.
 
 ---
 
 ## По-русски
 
-Это порт мода **Triumph Substations** на Factorio 2.1.
-Оригинальный автор — Логвинов Алексей (alecksey.com). Порт: Azmandios.
+Это порт мода **Triump Substations** (Factorio 1.1) на Factorio 2.1.
+Оригинальный автор — Логвинов Алексей (alecksey.com), лицензия MIT. Порт: Azmandios.
 
-Готовый архив: `dist/TriumphSubstation_2.1.0.zip`.
-Скопируйте его в `%APPDATA%\Factorio\mods` и включите мод в игре.
+На Mod Portal мод называется `TriumphSubstation2`: имя `TriumphSubstation` занято
+версией для 1.1. Внутренние имена прототипов не менялись, поэтому сохранения и
+чертежи из оригинального мода продолжают работать.
 
+Установка: подписка на Mod Portal или zip из `dist/` в папку модов Factorio.
 Другие моды не нужны, Space Age не обязателен.
+
+Сборка и проверка: `make build`, `make test`. Публикация: `make publish`
+(нужен токен Mod Portal в `.mod-portal-token`).
 Технические подробности порта — в [PORTING_NOTES.md](PORTING_NOTES.md).

@@ -17,17 +17,17 @@ end
 make_substation_item(
   "substation-2",
   "a[energy]-d[substation-2]",
-  "__TriumphSubstation__/graphics/icons/substation-2_icon.png"
+  "__TriumphSubstation2__/graphics/icons/substation-2_icon.png"
 )
 
 make_substation_item(
   "substation-3",
   "a[energy]-e[substation-3]",
-  "__TriumphSubstation__/graphics/icons/substation-3_icon.png"
+  "__TriumphSubstation2__/graphics/icons/substation-3_icon.png"
 )
 
 make_substation_item(
   "substation-4",
   "a[energy]-e[substation-4]",
-  "__TriumphSubstation__/graphics/icons/substation-4_icon.png"
+  "__TriumphSubstation2__/graphics/icons/substation-4_icon.png"
 )

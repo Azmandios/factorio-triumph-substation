@@ -3,12 +3,19 @@ Version: 2.1.0
 Date: 11. 11. 2026
   Changes:
     - Ported to Factorio 2.1.
-    - Updated info.json (factorio_version 2.1, base >= 2.1.0).
+    - Published on the Mod Portal as "TriumphSubstation2", because the original name is taken by the 1.1 version. Prototype names are unchanged, so old saves and blueprints keep working.
+    - Updated info.json (factorio_version 2.1, base >= 2.1.0, MIT license credits).
     - Updated entity sprites to the 2.0+ "layers" format.
     - Updated recipes to the 2.0+ ingredient/result format.
     - Replaced the removed "advanced-electronics" prerequisite with "advanced-circuit".
     - Removed the removed "speed" parameter from create_entity() in control.lua.
-    - Added English/Russian names and descriptions for technologies, recipes and items.
+    - Added English and Russian names and descriptions for technologies, recipes, items and entities.
+    - Fixed the Russian names of the Nucleonic and Reckless substations.
+---------------------------------------------------------------------------------------------------
+Version: 1.0.0
+Date: 20. 08. 2018
+  Notes:
+    - Initial release of the original Factorio 1.1 mod by Logvinov Alecksey.
 ---------------------------------------------------------------------------------------------------
 Version: 0.16.2
 Date: 26. 08. 2018
@@ -16,14 +23,3 @@ Date: 26. 08. 2018
     - Balanced the build time for both substations.
 	- Added a new technology for the Experimental Nucleonic Substation.
 	- Changed the cost of the technology for the Advanced Substation.
----------------------------------------------------------------------------------------------------
-Version: 0.16.1
-Date: 23. 08. 2018
-  Notes:
-    - New substation added, Experimental Nucleonic Substation.
----------------------------------------------------------------------------------------------------
-Version: 0.16.0
-Date: 20. 08. 2018
-  Notes:
-    - initial release.
----------------------------------------------------------------------------------------------------

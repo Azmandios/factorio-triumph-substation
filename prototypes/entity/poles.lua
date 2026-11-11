@@ -42,8 +42,8 @@ make_substation(
   32,
   16,
   200,
-  "__TriumphSubstation__/graphics/icons/substation-2_icon.png",
-  "__TriumphSubstation__/graphics/entity/substation-2/substation-2.png"
+  "__TriumphSubstation2__/graphics/icons/substation-2_icon.png",
+  "__TriumphSubstation2__/graphics/entity/substation-2/substation-2.png"
 )
 
 make_substation(
@@ -51,8 +51,8 @@ make_substation(
   48,
   24,
   100,
-  "__TriumphSubstation__/graphics/icons/substation-3_icon.png",
-  "__TriumphSubstation__/graphics/entity/substation-3/substation-3.png"
+  "__TriumphSubstation2__/graphics/icons/substation-3_icon.png",
+  "__TriumphSubstation2__/graphics/entity/substation-3/substation-3.png"
 )
 
 make_substation(
@@ -60,6 +60,6 @@ make_substation(
   64,
   32,
   100,
-  "__TriumphSubstation__/graphics/icons/substation-4_icon.png",
-  "__TriumphSubstation__/graphics/entity/substation-4/substation-4.png"
+  "__TriumphSubstation2__/graphics/icons/substation-4_icon.png",
+  "__TriumphSubstation2__/graphics/entity/substation-4/substation-4.png"
 )

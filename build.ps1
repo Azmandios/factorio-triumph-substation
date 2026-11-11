@@ -1,24 +1,38 @@
 [CmdletBinding()]
 param(
-    [string]$Version = "2.1.0"
+    [string]$Version = ""
 )
 
 $ErrorActionPreference = "Stop"
 
 $root = $PSScriptRoot
-$source = Join-Path $root "src\TriumphSubstation_$Version"
+$info = Get-Content (Join-Path $root "info.json") -Raw | ConvertFrom-Json
+
+if (-not $Version) { $Version = $info.version }
+$name = $info.name
+
+$entries = @("info.json", "changelog.txt", "control.lua", "data.lua", "graphics", "locale", "migrations", "prototypes")
+$optional = @("README.md", "LICENSE")
+
 $dist = Join-Path $root "dist"
-$zip = Join-Path $dist "TriumphSubstation_$Version.zip"
+$stage = Join-Path $dist "$($name)_$Version"
+$zip = Join-Path $dist "$($name)_$Version.zip"
 
-if (-not (Test-Path $source)) {
-    throw "Source directory not found: $source"
+if (Test-Path $stage) { Remove-Item $stage -Recurse -Force }
+if (Test-Path $zip) { Remove-Item $zip -Force }
+New-Item -ItemType Directory -Force -Path $stage | Out-Null
+
+foreach ($entry in $entries) {
+    $source = Join-Path $root $entry
+    if (-not (Test-Path $source)) { throw "Не найден обязательный элемент: $entry" }
+    Copy-Item $source -Destination $stage -Recurse
 }
 
-New-Item -ItemType Directory -Force -Path $dist | Out-Null
-if (Test-Path $zip) {
-    Remove-Item $zip -Force
+foreach ($entry in $optional) {
+    $source = Join-Path $root $entry
+    if (Test-Path $source) { Copy-Item $source -Destination $stage -Recurse }
 }
 
-Compress-Archive -Path $source -DestinationPath $zip -CompressionLevel Optimal
+Compress-Archive -Path $stage -DestinationPath $zip -CompressionLevel Optimal
 
-Write-Host "Created $zip"
+Write-Host "Собрано: $zip"

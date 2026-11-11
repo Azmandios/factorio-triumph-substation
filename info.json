@@ -1,0 +1,11 @@
+{
+    "name": "TriumphSubstation2",
+    "version": "2.1.0",
+    "title": "Triumph Substations (2.1 port)",
+    "author": "Azmandios",
+    "contact": "https://github.com/Azmandios/factorio-triumph-substation/issues",
+    "homepage": "https://github.com/Azmandios/factorio-triumph-substation",
+    "factorio_version": "2.1",
+    "dependencies": ["base >= 2.1.0"],
+    "description": "Adds three new advanced substations to the game.\n- Longer wire reach\n- Bigger supply area\n- More expensive\n- Adds the Electric Energy Distribution 3 research\n* Advanced Substation\n* Experimental Nucleonic Substation (volatile)\n* Reckless Substation\n\nCommunity update of the original \"Triump Substations\" mod by Logvinov Alecksey (Factorio 1.1) for Factorio 2.1. The original idea and assets belong to the original author (MIT license).\nOriginal mod: https://mods.factorio.com/mod/TriumphSubstation\nSources: https://github.com/Azmandios/factorio-triumph-substation\n\nThere is a separate mod name (TriumphSubstation2) because the original name is taken on the Mod Portal. The internal prototype names are unchanged, so the port can be used with saves and blueprints from the original mod.\n\nThe Experimental Nucleonic Substation can be used with roboports.\n\nUses quantum, temporal and rubber band science to allow electricity to flow to such a large area. The rubber bands keep the wire tight.\n\nUSE AT YOUR OWN RISK!"
+}
