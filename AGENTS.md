@@ -34,6 +34,9 @@ scripts/build.sh                                 сборка dist/<name>_<versi
 scripts/test.sh                                  check + дамп + сценарный тест
 scripts/release.sh                               bump версии, changelog, коммит, тег
 scripts/publish.sh                               загрузка релиза на Mod Portal
+scripts/portal-details.sh                        описание/категория/теги страницы мода
+portal/description.md                            описание для Mod Portal (markdown)
+portal/metadata.json                             title/summary/category/tags/license
 ```
 
 ## Команды
@@ -46,6 +49,7 @@ scripts/publish.sh                               загрузка релиза �
 | `make install` | собрать и распаковать в локальную папку модов Factorio |
 | `make release BUMP=patch CHANGES="..."` | релиз: версия, changelog, коммит, тег, сборка |
 | `make publish` | загрузить zip на Mod Portal (токен в `.mod-portal-token`) |
+| `make portal-details` | обновить описание/категорию/теги страницы мода |
 
 Пути Factorio переопределяются через `FACTORIO_BIN` и `FACTORIO_MODS`.
 

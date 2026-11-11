@@ -1,0 +1,9 @@
+{
+  "title": "Triumph Substations (2.1 port)",
+  "summary": "Community port of Triump Substations to Factorio 2.1: three substations with 32x32, 48x48 and 64x64 supply areas and wire reach up to 64. One of them detonates like an atomic bomb when destroyed. No other mods required.",
+  "category": "content",
+  "tags": ["power"],
+  "license": "default_mit",
+  "homepage": "https://github.com/Azmandios/factorio-triumph-substation",
+  "source_url": "https://github.com/Azmandios/factorio-triumph-substation"
+}

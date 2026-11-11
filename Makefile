@@ -3,7 +3,7 @@ MOD_VERSION := $(shell python3 -c 'import json; print(json.load(open("info.json"
 FACTORIO_MODS ?= $(HOME)/Library/Application Support/factorio/mods
 FACTORIO_BIN ?= $(HOME)/Library/Application Support/Steam/steamapps/common/Factorio/factorio.app/Contents/MacOS/factorio
 
-.PHONY: check build test install publish release clean
+.PHONY: check build test install publish portal-details release clean
 
 check:
 	@python3 tools/check.py
@@ -28,6 +28,10 @@ release:
 # Публикация собранного релиза (токен: MOD_PORTAL_TOKEN или .mod-portal-token).
 publish:
 	@bash scripts/publish.sh
+
+# Обновить оформление страницы мода (описание, категория, теги).
+portal-details:
+	@bash scripts/portal-details.sh
 
 clean:
 	rm -rf dist

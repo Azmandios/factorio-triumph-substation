@@ -7,7 +7,8 @@
   * префиксы __mod__/... в путях к ресурсам (должны указывать на этот мод);
   * существование всех файлов графики, на которые ссылаются прототипы;
   * паритет ключей локализации en/ru;
-  * наличие LICENSE.
+  * наличие LICENSE;
+  * оформление страницы Mod Portal (portal/metadata.json, portal/description.md).
 
 Запуск: python3 tools/check.py
 """
@@ -168,6 +169,71 @@ def check_license() -> None:
         warn("LICENSE: не указан автор оригинала")
 
 
+def check_portal(info: dict) -> None:
+    meta_path = ROOT / "portal" / "metadata.json"
+    desc_path = ROOT / "portal" / "description.md"
+
+    if not desc_path.is_file():
+        error("portal/description.md не найден")
+    else:
+        text = desc_path.read_text(encoding="utf-8", errors="replace").strip()
+        if not text:
+            error("portal/description.md пуст")
+        if len(text) > 60000:
+            warn("portal/description.md очень длинный (больше 60000 символов)")
+
+    if not meta_path.is_file():
+        error("portal/metadata.json не найден")
+        return
+
+    try:
+        meta = json.loads(meta_path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        error(f"portal/metadata.json: некорректный JSON: {exc}")
+        return
+
+    categories = {
+        "", "no-category", "content", "overhaul", "tweaks", "utilities",
+        "scenarios", "mod-packs", "localizations", "internal",
+    }
+    tags = {
+        "transportation", "logistics", "trains", "combat", "armor", "enemies",
+        "environment", "mining", "fluids", "logistic-network", "circuit-network",
+        "manufacturing", "power", "storage", "blueprints", "cheats",
+    }
+    licenses = {
+        "default_mit", "default_gnugplv3", "default_gnulgplv3",
+        "default_mozilla2", "default_apache2", "default_unlicense",
+    }
+
+    title = meta.get("title", "")
+    if not 1 <= len(title) <= 250:
+        error("portal/metadata.json: title должен быть от 1 до 250 символов")
+    if info.get("title") and title != info["title"]:
+        warn("portal/metadata.json: title не совпадает с info.json")
+
+    summary = meta.get("summary", "")
+    if not 1 <= len(summary) <= 500:
+        error(f"portal/metadata.json: summary должен быть от 1 до 500 символов (сейчас {len(summary)})")
+
+    if meta.get("category") not in categories:
+        error(f"portal/metadata.json: неизвестная категория {meta.get('category')!r}")
+
+    for tag in meta.get("tags") or []:
+        if tag not in tags:
+            error(f"portal/metadata.json: неизвестный тег {tag!r}")
+    if not meta.get("tags"):
+        warn("portal/metadata.json: не выбрано ни одного тега")
+
+    if meta.get("license") not in licenses and not str(meta.get("license", "")).startswith("custom_"):
+        error(f"portal/metadata.json: неизвестная лицензия {meta.get('license')!r}")
+
+    for key in ("homepage", "source_url"):
+        value = meta.get(key, "")
+        if value and not re.match(r"^https?://", value):
+            error(f"portal/metadata.json: {key} должен быть http(s) URL")
+
+
 def main() -> int:
     info = load_info()
     name = check_info(info)
@@ -177,6 +243,7 @@ def main() -> int:
         check_sprite_files(name)
     check_locales()
     check_license()
+    check_portal(info)
 
     for msg in WARNINGS:
         print(f"WARN  {msg}")

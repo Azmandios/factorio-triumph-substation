@@ -101,6 +101,11 @@ Then put the API token (factorio.com → Profile → API keys, permission
 `ModPortal: Upload Mods`) into `.mod-portal-token` (chmod 600, ignored by git) or
 export `MOD_PORTAL_TOKEN`, and run `make publish`.
 
+The page text lives in the repository: `portal/metadata.json` (title, summary,
+category, tags, license) and `portal/description.md` (markdown). After the page
+exists, `make portal-details` applies them (needs the `ModPortal: Edit Mods`
+permission on the token).
+
 ## Credits and license
 
 Original mod and assets: **Logvinov Alecksey**.
